@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <button onclick='turnOn()'>On</button>
+    <button onclick='turnOff()'>Off</button>
+
+    <button onclick='colorCylce()'>Start Colorloop</button>
+    <button onclick='removeEffect()'>Remove effects</button>
+    <button onclick='bright(0.25)'>25%</button>
+    <button onclick='bright(0.5)'>50%</button>
+    <button onclick='bright(0.75)'>75%</button>
+    <button onclick='bright(1)'>100%</button>
+    <button onclick='sync()'>Sync</button>
+  
+    <script src="dist/hue.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      // huejs.setIP(123);
+      huejs.bridge.setApiKey("AA9Ck6IdGj34-MlZ0b7EBNIMwiKfm24ywNmlkYZX");
+      huejs.bridge.setIP("192.168.178.78");
+
+      allLights = huejs.lights.getAllLights();
+
+
+      if(huejs.lights.isEntierGroupOn("Jannik")){
+        alert("Care all your lights are still on!");
+      }else{
+        // alert("No lights in GROUP: Jannik on !");
+      }
+
+
+      function removeEffect(){
+        data = {
+          "effect": "none"
+        }
+        huejs.lights.modifyLight('1', 'state', data);
+        huejs.lights.modifyLight('2', 'state', data);
+      }
+      console.log(allLights['1'].state.bri);
+      function sync(){
+        data ={
+          'bri': allLights['1'].state.bri,
+          'hue': allLights['1'].state.hue,
+          'sat': allLights['1'].state.sat
+        }
+        huejs.lights.modifyLight('2', 'state', data);
+      }
+      function bright(int){
+        var trans = int * 255;
+        console.log(trans);
+        data = {
+          'bri': parseInt(trans)
+        };
+        huejs.lights.modifyLight('1', 'state', data);
+        huejs.lights.modifyLight('2', 'state', data);
+      }
+
+      function turnOn(){
+        data = {
+          'on': true 
+        };
+        huejs.lights.modifyLight('1', 'state', data);
+        huejs.lights.modifyLight('2', 'state', data);
+      }
+
+      function turnOff(){
+        data = {
+          'on': false 
+        };
+        huejs.lights.modifyLight('1', 'state', data);
+        huejs.lights.modifyLight('2', 'state', data);
+      }
+
+      function colorCylce(){
+        data = {"effect":"colorloop"};
+        huejs.lights.modifyLight('1', 'state', data);
+        huejs.lights.modifyLight('2', 'state', data);
+      }
+      // 
+
+
+
+      
+
+      test_data = {
+        "1":{
+          "name": "Jannik"
+        }
+      }
+
+      // console.log(huejs.getIDbyName(allLights, 'Büro'));
+      // huejs.modifyLight('1', 'state', {"effect":"colorloop"});
+      // huejs.modifyLight('2', 'state', {"effect":"colorloop"});
+    </script>
+
+    <script>
+
+    </script>
+
+  </body>
+</html>
