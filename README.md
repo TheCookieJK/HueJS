@@ -3,6 +3,11 @@ HueJS is a Javascript library to work with <a href="https://developers.meethue.c
 
 
 ## Get started
+# Generate File 
+```javascript
+npm run build
+```
+
 # Import
 ```javascript
 <script src='dist/hue.js'></script>
