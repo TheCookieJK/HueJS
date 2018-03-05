@@ -69,29 +69,23 @@ export default class Lights{
         }
     }
     
-    turnOffGroup(group){
-        // let url = 'http://' + bridge.getIP()  + "/appi
+    switchOnOffGroup(group, callback = function(res){}){
+        let url = 'http://' + bridge.getIP()  + "/api" + bridge.getApiKey() + "/groups/" + group + "/action";
+        let data = {"on": false};
+        if(this.isEntierGroupOn(group) == false){
+            data = {"on": true};
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+
+                callback(this.responseText);
+                
+            }
+        }
+        xhr.open('PUT', url, true);
+        xhr.send(JSON.stringify(data));
     }
 
 }
 
-
-export const modifyLight = (light, target, newJson) => {
-    let url = 'http://' + bridge.getIP() + "/api/" + bridge.getApiKey() + "/lights/" + light +"/"+target;
-    let fetchData = {
-        method: 'PUT',
-        body: JSON.stringify(newJson)
-    }
-
-    fetch(url, fetchData)
-    .then(function(response){
-        console.log(response);
-    })
-    .then(function(json){
-        return json;
-    })
-    .catch(function(err){
-        console.log(err);
-    })
-
-}
