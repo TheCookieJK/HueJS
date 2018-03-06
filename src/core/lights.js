@@ -2,6 +2,11 @@ import { bridge } from '../main';
 import { nameToId } from '../utils/translator';
 
 export default class Lights{
+
+    
+    /** 
+     * Get all informations about all the lights connected to the bridge
+     */
     getAllLights(){
         let url = 'http://' + bridge.getIP() + "/api/" + bridge.getApiKey() + "/lights/";
         let xhr = new XMLHttpRequest();
@@ -9,7 +14,13 @@ export default class Lights{
         xhr.send(null);
         return JSON.parse(xhr.responseText);
     }
-
+    
+    /**
+     * 
+     * Get light id by name
+     * 
+     * @param {string} name 
+     */
     getLightByName(name){
         let lights = this.getAllLights();
         let id = nameToId(lights, name);
@@ -21,6 +32,15 @@ export default class Lights{
         }
     }
 
+    /**
+     * 
+     * Modify all states of a paritcular light
+     * 
+     * @param {string} light 
+     * @param {string} target 
+     * @param {Object} newJSON 
+     * @param {function} callback 
+     */
     modifyLight(light, target, newJSON, callback = function(res){}){
         let match = ['state', 'swupddate', 'type', 'name', 'modelid', 'manufacturername', 'capabilities', 'uniqueid', 'swversion', 'swconfigid', 'productid'];
         if(match.indexOf(target) > -1){
@@ -36,6 +56,16 @@ export default class Lights{
         }  
     }
 
+
+    /**
+     * 
+     * Function to modify the different states of a particular group
+     * 
+     * @param {string} group 
+     * @param {string} target 
+     * @param {Object} newJSON 
+     * @param {function} callback 
+     */
     modifyGroup(group, target, newJSON, callback = function(res){}){
         let match = ['name', 'lights', 'type', 'state', 'recycle', 'action', 'xy', 'ct', 'alert', 'colormode'];
         if(match.indexOf(target) > -1){
@@ -58,6 +88,13 @@ export default class Lights{
         
     }
 
+    /**
+     * 
+     * Checks if a particular group is on or off
+     * 
+     * @param {string} group 
+     * @return {boolean}
+     */
     isEntierGroupOn(group){
         let url = 'http://' + bridge.getIP() + "/api/" + bridge.getApiKey() + "/groups/" + group;  
         let xhr = new XMLHttpRequest();
@@ -68,7 +105,14 @@ export default class Lights{
             return response.state.all_on;
         }
     }
-    
+
+    /**
+     * 
+     * Switch group on or off
+     * 
+     * @param {string} group 
+     * @param {function} callback 
+     */
     switchOnOffGroup(group, callback = function(res){}){
         let url = 'http://' + bridge.getIP()  + "/api" + bridge.getApiKey() + "/groups/" + group + "/action";
         let data = {"on": false};
