@@ -13,5 +13,9 @@ module.exports = {
         libraryTarget: process.env.TARGET,
         path: path.join(__dirname, "dist"),
 		filename: "hue.js"
-    }
+    },
+    'optimization': {
+        'minimize': true
+    },
+    'target': 'web'
 };
