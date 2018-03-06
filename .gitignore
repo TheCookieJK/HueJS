@@ -3,4 +3,4 @@
 /dist/
 m.mp3
 npm-debug.log
-index.html
+*.html
