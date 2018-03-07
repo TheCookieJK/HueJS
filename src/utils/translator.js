@@ -2,7 +2,7 @@ export const nameToId = (raw_json, name) => {
     let input = flattenObject(raw_json);
     let found = 0;
     for(let k in input){
-        if(input[k] == name){
+        if(input[k.split('.')[0] + ".name"] == name){
             found++;
             return k.split('.')[0];
         }
