@@ -3,21 +3,30 @@ HueJS is a Javascript library to work with <a href="https://developers.meethue.c
 
 
 ## Get started
-# Generate File 
+### Generate File 
 ```javascript
 npm run build
 ```
 
-# Import
+### Import
 ```javascript
 <script src='dist/hue.js'></script>
 ```
-# Setup
+### Setup
 ```javascript
 huejs.bridge.setIP("<bridge-ip>");
 huejs.bridge.setAPIKey("<api-key>");
 ```
-# Example
+### Example
 ```javascript
-huejs.lights.modifyLight('1', 'state', {'on': true});
+huejs.lights.modify('1', 'state', {'on': true});
+
+huejs.groups.modify('1', 'action', {'on': false});
+```
+
+
+## To do:
+```javascript
+var group1 = huejs.groups.getByName("group");
+group1.modify({"on": true});
 ```
