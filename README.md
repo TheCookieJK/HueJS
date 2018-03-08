@@ -25,8 +25,15 @@ huejs.groups.modify('1', 'action', {'on': false});
 ```
 
 
-## To do:
+### Lights & groups as objects:
 ```javascript
-var group1 = huejs.groups.getByName("group");
-group1.modify({"on": true});
+var group = huejs.group("<group-name or group-id>");
+group.modify("action", {"on": true});
+group.turnOff();
+
+var light = huejs.light("<light-name or group-id>");
+light.modify("action", {"on": true});
+if(light.isOn()){
+    alert(light.lightName + " is on");
+}
 ```
