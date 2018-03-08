@@ -22,13 +22,44 @@ export default class Lights{
      * @param {string} name 
      */
     getByName(name){
-        let lights = this.getAllLights();
+        let lights = this.getAll();
         let id = nameToId(lights, name);
         if(id == false){
-            console.log("Light not found: " + name);
+            // console.log("Light not found: " + name);
             return -1;
         }else{
             return lights[id];
+        }
+    }
+
+    /**
+     * 
+     * 
+     */
+    get(light){
+        let lights = this.getAll();
+        let id = this.getIdByName(light);
+        if(typeof lights[light] !== "undefined"){
+            return lights[light];
+        }else if(typeof lights[id] !== "undefined"){
+            return lights[id];
+        }else{
+            return -1;
+        }
+    }
+
+    /**
+     * 
+     * 
+     * 
+     */
+    getIdByName(name){
+        let lights = this.getAll();
+        let id = nameToId(lights,name);
+        if(id == false){
+            return -1;
+        }else{
+            return id;
         }
     }
 
@@ -43,8 +74,14 @@ export default class Lights{
      */
     modify(light, target, newJSON, callback = function(res){}){
         let match = ['state', 'swupddate', 'type', 'name', 'modelid', 'manufacturername', 'capabilities', 'uniqueid', 'swversion', 'swconfigid', 'productid'];
+        let targetLight;
+        if(this.getIdByName(light) == -1){
+            targetLight = light;
+        }else{
+            targetLight = this.getIdByName(light);
+        }
         if(match.indexOf(target) > -1){
-            let url = 'http://' + bridge.getIP() + "/api/" + bridge.getApiKey() + "/lights/" + light +"/"+target;
+            let url = 'http://' + bridge.getIP() + "/api/" + bridge.getApiKey() + "/lights/" + targetLight +"/"+target;
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200){

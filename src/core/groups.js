@@ -50,7 +50,11 @@ export default class Groups{
         if(id == false){
             return false;
         }else{
-            return groups[id];
+
+            let groupObj = groups[id];
+            // groupObj['modify'] = this.modify(id, 'action', newJSON);
+
+            return groupObj;
         }
     }
 
@@ -132,3 +136,4 @@ export default class Groups{
 
 
 }
+
