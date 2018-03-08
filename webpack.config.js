@@ -7,6 +7,7 @@ module.exports = {
     entry: {
         index: path.resolve(__dirname, config.main)
     },
+    mode: process.env.NODE_ENV,
     devtool: 'source-map',
     output: {
         library: process.env.NAME,
