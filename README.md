@@ -31,7 +31,7 @@ var group = huejs.group("<group-name or group-id>");
 group.modify("action", {"on": true});
 group.turnOff();
 
-var light = huejs.light("<light-name or group-id>");
+var light = huejs.light("<light-name or light-id>");
 light.modify("action", {"on": true});
 if(light.isOn()){
     alert(light.lightName + " is on");
