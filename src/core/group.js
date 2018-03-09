@@ -24,6 +24,22 @@ const groupProto = {
     },
     clearEffects(){
         this.modify("action", {"effect": "none"});
+    },
+    bri(bri){
+        bri = Math.round(bri);
+        if(bri < 0){
+            bri = 0;
+        }else if(bri > 255){
+            bri = 255;
+        }
+        this.modify("action", {"bri": bri});
+    },
+    hue(hue){
+        hue = Math.round(hue);
+        this.modify("action", {"hue": hue});
+    },
+    select(){
+        this.modify("action", {"alert": 'select'});
     }
 };
 
